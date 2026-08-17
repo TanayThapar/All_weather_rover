@@ -14,6 +14,17 @@
     <plugin filename="gz-sim-sensors-system" name="gz::sim::systems::Sensors"/>
     <plugin filename="gz-sim-particle-emitter-system" name="gz::sim::systems::ParticleEmitter"/>
 
+    <!-- rmagine Embree (CPU) Map Plugin - Required for radarays radar simulation -->
+    <!-- Builds a BVH acceleration structure for ray tracing over the Gazebo world -->
+    <plugin name='rmagine_embree_map' filename='librmagine_embree_map_gzplugin.so'>
+      <update>
+        <delta_trans>0.001</delta_trans>
+        <delta_rot>0.001</delta_rot>
+        <delta_scale>0.001</delta_scale>
+        <rate_limit>200</rate_limit>
+      </update>
+    </plugin>
+
     <!-- Sun Light -->
     <light type="directional" name="sun">
       <cast_shadows>true</cast_shadows>

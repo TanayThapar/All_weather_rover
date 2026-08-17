@@ -54,6 +54,44 @@
       <mu2>1.5</mu2>
     </gazebo>
 
+    <!-- ====================================================== -->
+    <!-- RADAR SENSOR PLUGIN                                    -->
+    <!-- ====================================================== -->
+
+    <gazebo reference="radar_front_link">
+      <material>Gazebo/Grey</material>
+
+      <sensor name="radar_front" type="radarays_rotating_radar">
+        <always_on>true</always_on>
+        <update_rate>10</update_rate>
+        <visualize>false</visualize>
+        <topic>/radar/scan</topic>
+
+        <radarays>
+          <!-- Ray tracing backend: embree (CPU) -->
+          <backend>embree</backend>
+
+          <!-- FMCW radar parameters (77 GHz automotive-style) -->
+          <frequency>77.0e9</frequency>
+          <max_range>100.0</max_range>
+          <min_range>0.5</min_range>
+
+          <!-- Horizontal FOV: 15 degrees, Vertical FOV: 10 degrees -->
+          <horizontal_samples>128</horizontal_samples>
+          <vertical_samples>32</vertical_samples>
+          <horizontal_min_angle>-0.1309</horizontal_min_angle>
+          <horizontal_max_angle>0.1309</horizontal_max_angle>
+          <vertical_min_angle>-0.0873</vertical_min_angle>
+          <vertical_max_angle>0.0873</vertical_max_angle>
+
+          <!-- Rotation: simulate rotating FMCW scan -->
+          <num_roses>3</num_roses>
+          <resolution_azimuth>256</resolution_azimuth>
+          <resolution_velocity>64</resolution_velocity>
+        </radarays>
+      </sensor>
+    </gazebo>
+
   </xacro:macro>
 
 </robot>
