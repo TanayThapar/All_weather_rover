@@ -104,4 +104,26 @@ def generate_launch_description():
             ],
             output='screen'
         ),
+
+        # --------------------------------------------------------
+        # ROS Gz Bridge
+        # --------------------------------------------------------
+
+        Node(
+            package='ros_gz_bridge',
+            executable='parameter_bridge',
+            name='ros_gz_bridge',
+            parameters=[{'use_sim_time': True}],
+            arguments=[
+                '/clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock',
+                '/cmd_vel@geometry_msgs/msg/Twist]gz.msgs.Twist',
+                '/model/all_weather_explorer/odometry@nav_msgs/msg/Odometry[gz.msgs.Odometry',
+                '/world/default/model/all_weather_explorer/joint_state@sensor_msgs/msg/JointState[gz.msgs.Model',
+            ],
+            remappings=[
+                ('/model/all_weather_explorer/odometry', '/odom'),
+                ('/world/default/model/all_weather_explorer/joint_state', '/joint_states'),
+            ],
+            output='screen'
+        ),
     ])

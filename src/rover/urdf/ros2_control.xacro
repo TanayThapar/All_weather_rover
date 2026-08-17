@@ -15,7 +15,7 @@
         name="gz::sim::systems::AckermannSteering">
 
         <!-- Command topic (Gazebo Transport) -->
-        <topic>/model/all_weather_explorer/cmd_vel</topic>
+        <topic>/cmd_vel</topic>
 
         <!-- Rear drive wheels -->
         <left_rear_wheel_joint>rear_left_wheel_joint</left_rear_wheel_joint>
