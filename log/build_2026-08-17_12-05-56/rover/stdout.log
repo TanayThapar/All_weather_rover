@@ -1,0 +1,27 @@
+running develop
+running egg_info
+writing rover.egg-info/PKG-INFO
+writing dependency_links to rover.egg-info/dependency_links.txt
+writing entry points to rover.egg-info/entry_points.txt
+writing requirements to rover.egg-info/requires.txt
+writing top-level names to rover.egg-info/top_level.txt
+reading manifest file 'rover.egg-info/SOURCES.txt'
+writing manifest file 'rover.egg-info/SOURCES.txt'
+running build_ext
+Creating /home/cv-02/all_weather_ws/install/rover/lib/python3.10/site-packages/rover.egg-link (link to .)
+
+Installed /home/cv-02/all_weather_ws/build/rover
+running symlink_data
+symbolically linking /home/cv-02/all_weather_ws/build/rover/resource/rover -> /home/cv-02/all_weather_ws/install/rover/share/ament_index/resource_index/packages
+symbolically linking /home/cv-02/all_weather_ws/build/rover/package.xml -> /home/cv-02/all_weather_ws/install/rover/share/rover
+symbolically linking /home/cv-02/all_weather_ws/build/rover/urdf/wheels.xacro -> /home/cv-02/all_weather_ws/install/rover/share/rover/urdf
+symbolically linking /home/cv-02/all_weather_ws/build/rover/urdf/rover.urdf.xacro -> /home/cv-02/all_weather_ws/install/rover/share/rover/urdf
+symbolically linking /home/cv-02/all_weather_ws/build/rover/urdf/gazebo.xacro -> /home/cv-02/all_weather_ws/install/rover/share/rover/urdf
+symbolically linking /home/cv-02/all_weather_ws/build/rover/urdf/materials.xacro -> /home/cv-02/all_weather_ws/install/rover/share/rover/urdf
+symbolically linking /home/cv-02/all_weather_ws/build/rover/urdf/sensors.xacro -> /home/cv-02/all_weather_ws/install/rover/share/rover/urdf
+symbolically linking /home/cv-02/all_weather_ws/build/rover/urdf/base.xacro -> /home/cv-02/all_weather_ws/install/rover/share/rover/urdf
+symbolically linking /home/cv-02/all_weather_ws/build/rover/urdf/ros2_control.xacro -> /home/cv-02/all_weather_ws/install/rover/share/rover/urdf
+symbolically linking /home/cv-02/all_weather_ws/build/rover/launch/spawn.launch.py -> /home/cv-02/all_weather_ws/install/rover/share/rover/launch
+symbolically linking /home/cv-02/all_weather_ws/build/rover/launch/gazebo.launch.py -> /home/cv-02/all_weather_ws/install/rover/share/rover/launch
+symbolically linking /home/cv-02/all_weather_ws/build/rover/config/controllers.yaml -> /home/cv-02/all_weather_ws/install/rover/share/rover/config
+creating /home/cv-02/all_weather_ws/install/rover/share/rover/worlds

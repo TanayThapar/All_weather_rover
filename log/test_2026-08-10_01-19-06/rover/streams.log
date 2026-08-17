@@ -1,0 +1,86 @@
+[0.175s] Invoking command in '/home/cv-02/all_weather_ws/src/rover': PYTEST_ADDOPTS=--tb=short --junit-xml=/home/cv-02/all_weather_ws/build/rover/pytest.xml --junit-prefix=rover -o cache_dir=/home/cv-02/all_weather_ws/build/rover/.pytest_cache PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=/home/cv-02/all_weather_ws/install/rover/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -m pytest
+[0.399s] [1m============================= test session starts ==============================[0m
+[0.399s] platform linux -- Python 3.10.12, pytest-6.2.5, py-1.10.0, pluggy-0.13.0
+[0.401s] cachedir: /home/cv-02/all_weather_ws/build/rover/.pytest_cache
+[0.401s] rootdir: /home/cv-02/all_weather_ws/src/rover
+[0.401s] plugins: ament-lint-0.12.15, ament-flake8-0.12.15, ament-xmllint-0.12.15, launch-testing-ros-0.19.13, ament-copyright-0.12.15, launch-testing-1.0.14, ament-pep257-0.12.15, colcon-core-0.21.0, cov-3.0.0
+[0.457s] [1mcollecting ... [0m[1m
+[0.457s] collected 3 items                                                              [0m
+[0.458s] 
+[0.461s] test/test_copyright.py [33ms[0m[32m                                                 [ 33%][0m
+[0.539s] test/test_flake8.py [31mF[0m[31m                                                    [ 66%][0m
+[0.553s] test/test_pep257.py [32m.[0m[31m                                                    [100%][0m
+[0.553s] 
+[0.553s] =================================== FAILURES ===================================
+[0.553s] [31m[1m_________________________________ test_flake8 __________________________________[0m
+[0.554s] [1m[31mtest/test_flake8.py[0m:23: in test_flake8
+[0.580s]     [94massert[39;49;00m rc == [94m0[39;49;00m, \
+[0.580s] [1m[31mE   AssertionError: Found 8 code style errors / warnings:[0m
+[0.580s] [1m[31mE     ./setup.py:34:1: W191 indentation contains tabs[0m
+[0.580s] [1m[31mE     ./setup.py:34:1: E101 indentation contains mixed spaces and tabs[0m
+[0.580s] [1m[31mE     ./setup.py:35:1: W191 indentation contains tabs[0m
+[0.580s] [1m[31mE     ./setup.py:35:1: E101 indentation contains mixed spaces and tabs[0m
+[0.580s] [1m[31mE     ./setup.py:36:1: W191 indentation contains tabs[0m
+[0.580s] [1m[31mE     ./setup.py:36:1: E101 indentation contains mixed spaces and tabs[0m
+[0.580s] [1m[31mE     ./setup.py:37:1: W191 indentation contains tabs[0m
+[0.580s] [1m[31mE     ./setup.py:37:1: E101 indentation contains mixed spaces and tabs[0m
+[0.580s] [1m[31mE   assert 1 == 0[0m
+[0.580s] ----------------------------- Captured stdout call -----------------------------
+[0.580s] 
+[0.580s] ./setup.py:34:1: W191 indentation contains tabs
+[0.580s] 	(
+[0.580s] ^
+[0.580s] 
+[0.581s] ./setup.py:34:1: E101 indentation contains mixed spaces and tabs
+[0.581s] 	(
+[0.581s] ^
+[0.581s] 
+[0.581s] ./setup.py:35:1: W191 indentation contains tabs
+[0.581s] 	    os.path.join('share', package_name, 'config'),
+[0.581s] ^
+[0.581s] 
+[0.581s] ./setup.py:35:1: E101 indentation contains mixed spaces and tabs
+[0.581s] 	    os.path.join('share', package_name, 'config'),
+[0.581s] ^
+[0.581s] 
+[0.581s] ./setup.py:36:1: W191 indentation contains tabs
+[0.581s] 	    glob('config/*')
+[0.581s] ^
+[0.581s] 
+[0.581s] ./setup.py:36:1: E101 indentation contains mixed spaces and tabs
+[0.581s] 	    glob('config/*')
+[0.581s] ^
+[0.581s] 
+[0.581s] ./setup.py:37:1: W191 indentation contains tabs
+[0.581s] 	),
+[0.581s] ^
+[0.581s] 
+[0.581s] ./setup.py:37:1: E101 indentation contains mixed spaces and tabs
+[0.581s] 	),
+[0.581s] ^
+[0.581s] 
+[0.581s] 4     E101 indentation contains mixed spaces and tabs
+[0.581s] 4     W191 indentation contains tabs
+[0.581s] 
+[0.581s] 7 files checked
+[0.581s] 8 errors
+[0.581s] 
+[0.581s] 'E'-type errors: 4
+[0.581s] 'W'-type errors: 4
+[0.581s] 
+[0.581s] Checked files:
+[0.581s] 
+[0.581s] * ./setup.py
+[0.582s] * ./test/test_pep257.py
+[0.582s] * ./test/test_flake8.py
+[0.582s] * ./test/test_copyright.py
+[0.582s] * ./launch/spawn.launch.py
+[0.582s] * ./launch/gazebo.launch.py
+[0.582s] * ./rover/__init__.py
+[0.582s] ----------------------------- Captured stderr call -----------------------------
+[0.582s] option --max-complexity: please update from optparse string `type=` to argparse callable `type=` -- this will be an error in the future
+[0.582s] ---- generated xml file: /home/cv-02/all_weather_ws/build/rover/pytest.xml -----
+[0.582s] =========================== short test summary info ============================
+[0.582s] FAILED test/test_flake8.py::test_flake8 - AssertionError: Found 8 code style ...
+[0.582s] [31m==================== [31m[1m1 failed[0m, [32m1 passed[0m, [33m1 skipped[0m[31m in 0.18s[0m[31m ====================[0m
+[0.619s] Invoked command in '/home/cv-02/all_weather_ws/src/rover' returned '1': PYTEST_ADDOPTS=--tb=short --junit-xml=/home/cv-02/all_weather_ws/build/rover/pytest.xml --junit-prefix=rover -o cache_dir=/home/cv-02/all_weather_ws/build/rover/.pytest_cache PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=/home/cv-02/all_weather_ws/install/rover/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -m pytest

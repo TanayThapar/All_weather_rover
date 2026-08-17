@@ -1,0 +1,16 @@
+[0.939s] Invoking command in '/home/cv-02/all_weather_ws/build/rover': PYTHONPATH=/home/cv-02/all_weather_ws/build/rover/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/cv-02/all_weather_ws/install/rover/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/cv-02/all_weather_ws/build/rover/build --no-deps symlink_data
+[1.167s] running develop
+[1.320s] running egg_info
+[1.320s] writing rover.egg-info/PKG-INFO
+[1.321s] writing dependency_links to rover.egg-info/dependency_links.txt
+[1.321s] writing entry points to rover.egg-info/entry_points.txt
+[1.321s] writing requirements to rover.egg-info/requires.txt
+[1.321s] writing top-level names to rover.egg-info/top_level.txt
+[1.323s] reading manifest file 'rover.egg-info/SOURCES.txt'
+[1.324s] writing manifest file 'rover.egg-info/SOURCES.txt'
+[1.325s] running build_ext
+[1.326s] Creating /home/cv-02/all_weather_ws/install/rover/lib/python3.10/site-packages/rover.egg-link (link to .)
+[1.326s] 
+[1.326s] Installed /home/cv-02/all_weather_ws/build/rover
+[1.326s] running symlink_data
+[1.360s] Invoked command in '/home/cv-02/all_weather_ws/build/rover' returned '0': PYTHONPATH=/home/cv-02/all_weather_ws/build/rover/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/cv-02/all_weather_ws/install/rover/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/cv-02/all_weather_ws/build/rover/build --no-deps symlink_data

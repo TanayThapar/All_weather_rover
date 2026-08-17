@@ -1,0 +1,39 @@
+[0.402s] Invoking command in '/home/cv-02/all_weather_ws/build/rover': PYTHONPATH=/home/cv-02/all_weather_ws/build/rover/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/cv-02/all_weather_ws/install/rover/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --uninstall --editable --build-directory /home/cv-02/all_weather_ws/build/rover/build
+[0.587s] running develop
+[0.701s] Removing /home/cv-02/all_weather_ws/install/rover/lib/python3.10/site-packages/rover.egg-link (link to .)
+[0.720s] Invoked command in '/home/cv-02/all_weather_ws/build/rover' returned '0': PYTHONPATH=/home/cv-02/all_weather_ws/build/rover/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/cv-02/all_weather_ws/install/rover/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --uninstall --editable --build-directory /home/cv-02/all_weather_ws/build/rover/build
+[0.722s] Invoking command in '/home/cv-02/all_weather_ws/src/rover': PYTHONPATH=/home/cv-02/all_weather_ws/build/rover/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/cv-02/all_weather_ws/install/rover/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/rover build --build-base /home/cv-02/all_weather_ws/build/rover/build install --record /home/cv-02/all_weather_ws/build/rover/install.log --install-scripts $base/lib/rover --single-version-externally-managed install_data --force
+[0.883s] running egg_info
+[0.883s] writing ../../build/rover/rover.egg-info/PKG-INFO
+[0.883s] writing dependency_links to ../../build/rover/rover.egg-info/dependency_links.txt
+[0.883s] writing entry points to ../../build/rover/rover.egg-info/entry_points.txt
+[0.883s] writing requirements to ../../build/rover/rover.egg-info/requires.txt
+[0.883s] writing top-level names to ../../build/rover/rover.egg-info/top_level.txt
+[0.884s] reading manifest file '../../build/rover/rover.egg-info/SOURCES.txt'
+[0.885s] writing manifest file '../../build/rover/rover.egg-info/SOURCES.txt'
+[0.885s] running build
+[0.885s] running build_py
+[0.885s] running install
+[0.885s] running install_lib
+[0.886s] creating /home/cv-02/all_weather_ws/install/rover/lib/python3.10/site-packages/rover
+[0.886s] copying /home/cv-02/all_weather_ws/build/rover/build/lib/rover/__init__.py -> /home/cv-02/all_weather_ws/install/rover/lib/python3.10/site-packages/rover
+[0.886s] byte-compiling /home/cv-02/all_weather_ws/install/rover/lib/python3.10/site-packages/rover/__init__.py to __init__.cpython-310.pyc
+[0.886s] running install_data
+[0.886s] copying resource/rover -> /home/cv-02/all_weather_ws/install/rover/share/ament_index/resource_index/packages
+[0.886s] copying package.xml -> /home/cv-02/all_weather_ws/install/rover/share/rover
+[0.886s] copying urdf/wheels.xacro -> /home/cv-02/all_weather_ws/install/rover/share/rover/urdf
+[0.887s] copying urdf/rover.urdf.xacro -> /home/cv-02/all_weather_ws/install/rover/share/rover/urdf
+[0.887s] copying urdf/gazebo.xacro -> /home/cv-02/all_weather_ws/install/rover/share/rover/urdf
+[0.887s] copying urdf/materials.xacro -> /home/cv-02/all_weather_ws/install/rover/share/rover/urdf
+[0.887s] copying urdf/sensors.xacro -> /home/cv-02/all_weather_ws/install/rover/share/rover/urdf
+[0.887s] copying urdf/base.xacro -> /home/cv-02/all_weather_ws/install/rover/share/rover/urdf
+[0.888s] copying urdf/ros2_control.xacro -> /home/cv-02/all_weather_ws/install/rover/share/rover/urdf
+[0.888s] copying launch/spawn.launch.py -> /home/cv-02/all_weather_ws/install/rover/share/rover/launch
+[0.888s] copying launch/gazebo.launch.py -> /home/cv-02/all_weather_ws/install/rover/share/rover/launch
+[0.888s] copying config/controllers.yaml -> /home/cv-02/all_weather_ws/install/rover/share/rover/config
+[0.888s] copying worlds/rover_world.sdf -> /home/cv-02/all_weather_ws/install/rover/share/rover/worlds
+[0.888s] running install_egg_info
+[0.890s] Copying ../../build/rover/rover.egg-info to /home/cv-02/all_weather_ws/install/rover/lib/python3.10/site-packages/rover-0.0.0-py3.10.egg-info
+[0.890s] running install_scripts
+[0.904s] writing list of installed files to '/home/cv-02/all_weather_ws/build/rover/install.log'
+[0.921s] Invoked command in '/home/cv-02/all_weather_ws/src/rover' returned '0': PYTHONPATH=/home/cv-02/all_weather_ws/build/rover/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/cv-02/all_weather_ws/install/rover/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/rover build --build-base /home/cv-02/all_weather_ws/build/rover/build install --record /home/cv-02/all_weather_ws/build/rover/install.log --install-scripts $base/lib/rover --single-version-externally-managed install_data --force

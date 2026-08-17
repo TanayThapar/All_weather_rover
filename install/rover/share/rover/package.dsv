@@ -1,0 +1,3 @@
+source;share/rover/hook/pythonpath.ps1
+source;share/rover/hook/pythonpath.dsv
+source;share/rover/hook/pythonpath.sh

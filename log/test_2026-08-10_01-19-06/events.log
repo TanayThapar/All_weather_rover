@@ -1,0 +1,98 @@
+[0.000000] (-) TimerEvent: {}
+[0.000175] (rover) JobQueued: {'identifier': 'rover', 'dependencies': OrderedDict([('rover', '/home/cv-02/all_weather_ws/install/rover')])}
+[0.000219] (rover) JobStarted: {'identifier': 'rover'}
+[0.099515] (-) TimerEvent: {}
+[0.173509] (rover) Command: {'cmd': ['/usr/bin/python3', '-m', 'pytest'], 'cwd': '/home/cv-02/all_weather_ws/src/rover', 'env': {'LESSOPEN': '| /usr/bin/lesspipe %s', 'PYTHONWARNINGS': 'ignore:::setuptools.installer,ignore:::setuptools.command.install,ignore:::setuptools.command.easy_install', 'CCACHE_TEMPDIR': '/tmp/ccache', 'GZ_SIM_RESOURCE_PATH': '/home/cv-02/cognipilot/cranium/install/dream_world/share/dream_world/worlds:/home/cv-02/cognipilot/cranium/install/dream_world/share/dream_world/models:/home/cv-02/cognipilot/cranium/install/b3rb_gz_resource/share/b3rb_gz_resource/models', 'LANGUAGE': 'en_IN:en', 'USER': 'cv-02', 'npm_config_user_agent': 'npm/10.8.2 node/v20.20.2 linux x64 workspaces/false', 'XDG_SESSION_TYPE': 'wayland', 'npm_node_execpath': '/usr/bin/node', 'SHLVL': '2', 'LD_LIBRARY_PATH': '/home/cv-02/cognipilot/cranium/install/synapse_tinyframe/lib:/home/cv-02/cognipilot/cranium/install/synapse_protobuf/lib:/home/cv-02/cognipilot/cranium/install/synapse_msgs/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib', 'npm_config_noproxy': '', 'HOME': '/home/cv-02', 'DESKTOP_SESSION': 'ubuntu', 'npm_package_json': '/home/cv-02/package.json', 'ROS_PYTHON_VERSION': '3', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'GTK_MODULES': 'gail:atk-bridge:appmenu-gtk-module', 'PAGER': 'cat', 'npm_config_userconfig': '/home/cv-02/.npmrc', 'npm_config_local_prefix': '/home/cv-02', 'SYSTEMD_EXEC_PID': '1780', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'COLOR': '1', 'IM_CONFIG_PHASE': '1', 'WAYLAND_DISPLAY': 'wayland-0', 'COLCON_PREFIX_PATH': '/home/cv-02/cognipilot/electrode/install:/home/cv-02/cognipilot/cranium/install', 'ROS_DISTRO': 'humble', 'LOGNAME': 'cv-02', 'npm_config_npm_version': '10.8.2', 'npm_config_prefix': '/usr', 'GEMINI_CLI': '1', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'npm_config_cache': '/home/cv-02/.npm', 'USERNAME': 'cv-02', 'TERM': 'xterm-256color', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'ROS_LOCALHOST_ONLY': '0', 'npm_config_node_gyp': '/usr/lib/node_modules/npm/node_modules/node-gyp/bin/node-gyp.js', 'PATH': '/home/cv-02/.npm/_npx/d07ada7b4a99c96e/node_modules/.bin:/home/cv-02/node_modules/.bin:/home/node_modules/.bin:/node_modules/.bin:/usr/lib/node_modules/npm/node_modules/@npmcli/run-script/lib/node-gyp-bin:/home/cv-02/.local/bin:/home/cv-02/cognipilot/ws/cerebri/install/bin:/opt/ros/humble/bin:/home/cv-02/.local/bin:/home/cv-02/.local/bin:/home/cv-02/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin', 'SESSION_MANAGER': 'local/cv02-ThinkCentre-neo-50a-24-Gen-5:@/tmp/.ICE-unix/1747,unix/cv02-ThinkCentre-neo-50a-24-Gen-5:/tmp/.ICE-unix/1747', 'NODE': '/usr/bin/node', 'GEMINI_CLI_NO_RELAUNCH': 'true', 'XDG_MENU_PREFIX': 'gnome-', 'GNOME_TERMINAL_SCREEN': '/org/gnome/Terminal/screen/e853310a_0ff2_4868_a595_bcb838758fe9', 'GNOME_SETUP_DISPLAY': ':1', 'XDG_RUNTIME_DIR': '/run/user/1000', 'DISPLAY': ':0', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'RMW_IMPLEMENTATION': 'rmw_cyclonedds_cpp', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'ubuntu', 'XAUTHORITY': '/run/user/1000/.mutter-Xwaylandauth.0Z2KT3', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'npm_lifecycle_script': 'gemini', 'GNOME_TERMINAL_SERVICE': ':1.156', 'SSH_AGENT_LAUNCHER': 'gnome-keyring', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'ROS_DOMAIN_ID': '7', 'AMENT_PREFIX_PATH': '/home/cv-02/cognipilot/cranium/install/synapse_ros:/home/cv-02/cognipilot/cranium/install/synapse_gz:/home/cv-02/cognipilot/cranium/install/synapse_tinyframe:/home/cv-02/cognipilot/cranium/install/synapse_protobuf:/home/cv-02/cognipilot/cranium/install/corti:/home/cv-02/cognipilot/cranium/install/b3rb_ros_line_follower:/home/cv-02/cognipilot/cranium/install/synapse_msgs:/home/cv-02/cognipilot/cranium/install/dream_world:/home/cv-02/cognipilot/cranium/install/cerebri_bringup:/home/cv-02/cognipilot/cranium/install/b3rb_simulator:/home/cv-02/cognipilot/cranium/install/b3rb_desktop:/home/cv-02/cognipilot/cranium/install/b3rb_rviz:/home/cv-02/cognipilot/cranium/install/b3rb_nav2:/home/cv-02/cognipilot/cranium/install/b3rb_gz_resource:/home/cv-02/cognipilot/cranium/install/b3rb_gz_bringup:/home/cv-02/cognipilot/cranium/install/b3rb_description:/home/cv-02/cognipilot/electrode/install/electrode:/opt/ros/humble', 'SHELL': '/bin/bash', 'npm_lifecycle_event': 'npx', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'ubuntu', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'CMAKE_EXPORT_COMPILE_COMMANDS': 'ON', 'npm_config_globalconfig': '/usr/etc/npmrc', 'npm_config_init_module': '/home/cv-02/.npm-init.js', 'GIT_PAGER': 'cat', 'QT_IM_MODULE': 'ibus', 'PWD': '/home/cv-02/all_weather_ws/build/rover', 'npm_execpath': '/usr/lib/node_modules/npm/bin/npm-cli.js', 'LC_ALL': 'en_US.UTF-8', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/etc/xdg', 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'npm_config_global_prefix': '/usr', 'npm_command': 'exec', 'PYTHONPATH': '/home/cv-02/all_weather_ws/install/rover/lib/python3.10/site-packages:/home/cv-02/cognipilot/cranium/install/corti/local/lib/python3.10/dist-packages:/home/cv-02/cognipilot/cranium/install/b3rb_ros_line_follower/lib/python3.10/site-packages:/home/cv-02/cognipilot/cranium/install/synapse_msgs/local/lib/python3.10/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages', 'COLCON': '1', 'VTE_VERSION': '6800', 'EDITOR': 'vi', 'CMAKE_PREFIX_PATH': '/home/cv-02/cognipilot/cranium/install/synapse_ros:/home/cv-02/cognipilot/cranium/install/synapse_gz:/home/cv-02/cognipilot/cranium/install/synapse_tinyframe:/home/cv-02/cognipilot/cranium/install/synapse_protobuf:/home/cv-02/cognipilot/cranium/install/corti:/home/cv-02/cognipilot/cranium/install/synapse_msgs:/home/cv-02/cognipilot/cranium/install/dream_world:/home/cv-02/cognipilot/cranium/install/cerebri_bringup:/home/cv-02/cognipilot/cranium/install/b3rb_simulator:/home/cv-02/cognipilot/cranium/install/b3rb_desktop:/home/cv-02/cognipilot/cranium/install/b3rb_rviz:/home/cv-02/cognipilot/cranium/install/b3rb_nav2:/home/cv-02/cognipilot/cranium/install/b3rb_gz_resource:/home/cv-02/cognipilot/cranium/install/b3rb_gz_bringup:/home/cv-02/cognipilot/cranium/install/b3rb_description:/home/cv-02/cognipilot/electrode/install/electrode', 'INIT_CWD': '/home/cv-02', 'PYTHONDONTWRITEBYTECODE': '1', 'PYTEST_ADDOPTS': '--tb=short --junit-xml=/home/cv-02/all_weather_ws/build/rover/pytest.xml --junit-prefix=rover -o cache_dir=/home/cv-02/all_weather_ws/build/rover/.pytest_cache'}, 'shell': False}
+[0.199620] (-) TimerEvent: {}
+[0.299912] (-) TimerEvent: {}
+[0.398837] (rover) StdoutLine: {'line': b'\x1b[1m============================= test session starts ==============================\x1b[0m\n'}
+[0.398973] (rover) StdoutLine: {'line': b'platform linux -- Python 3.10.12, pytest-6.2.5, py-1.10.0, pluggy-0.13.0\n'}
+[0.399975] (-) TimerEvent: {}
+[0.401341] (rover) StdoutLine: {'line': b'cachedir: /home/cv-02/all_weather_ws/build/rover/.pytest_cache\n'}
+[0.401420] (rover) StdoutLine: {'line': b'rootdir: /home/cv-02/all_weather_ws/src/rover\n'}
+[0.401458] (rover) StdoutLine: {'line': b'plugins: ament-lint-0.12.15, ament-flake8-0.12.15, ament-xmllint-0.12.15, launch-testing-ros-0.19.13, ament-copyright-0.12.15, launch-testing-1.0.14, ament-pep257-0.12.15, colcon-core-0.21.0, cov-3.0.0\n'}
+[0.457494] (rover) StdoutLine: {'line': b'\x1b[1mcollecting ... \x1b[0m\x1b[1m\n'}
+[0.457665] (rover) StdoutLine: {'line': b'collected 3 items                                                              \x1b[0m\n'}
+[0.457752] (rover) StdoutLine: {'line': b'\n'}
+[0.461339] (rover) StdoutLine: {'line': b'test/test_copyright.py \x1b[33ms\x1b[0m\x1b[32m                                                 [ 33%]\x1b[0m\n'}
+[0.500118] (-) TimerEvent: {}
+[0.539056] (rover) StdoutLine: {'line': b'test/test_flake8.py \x1b[31mF\x1b[0m\x1b[31m                                                    [ 66%]\x1b[0m\n'}
+[0.553297] (rover) StdoutLine: {'line': b'test/test_pep257.py \x1b[32m.\x1b[0m\x1b[31m                                                    [100%]\x1b[0m\n'}
+[0.553459] (rover) StdoutLine: {'line': b'\n'}
+[0.553549] (rover) StdoutLine: {'line': b'=================================== FAILURES ===================================\n'}
+[0.553630] (rover) StdoutLine: {'line': b'\x1b[31m\x1b[1m_________________________________ test_flake8 __________________________________\x1b[0m\n'}
+[0.553706] (rover) StdoutLine: {'line': b'\x1b[1m\x1b[31mtest/test_flake8.py\x1b[0m:23: in test_flake8\n'}
+[0.579678] (rover) StdoutLine: {'line': b'    \x1b[94massert\x1b[39;49;00m rc == \x1b[94m0\x1b[39;49;00m, \\\n'}
+[0.579880] (rover) StdoutLine: {'line': b'\x1b[1m\x1b[31mE   AssertionError: Found 8 code style errors / warnings:\x1b[0m\n'}
+[0.579993] (rover) StdoutLine: {'line': b'\x1b[1m\x1b[31mE     ./setup.py:34:1: W191 indentation contains tabs\x1b[0m\n'}
+[0.580279] (rover) StdoutLine: {'line': b'\x1b[1m\x1b[31mE     ./setup.py:34:1: E101 indentation contains mixed spaces and tabs\x1b[0m\n'}
+[0.580353] (rover) StdoutLine: {'line': b'\x1b[1m\x1b[31mE     ./setup.py:35:1: W191 indentation contains tabs\x1b[0m\n'}
+[0.580387] (rover) StdoutLine: {'line': b'\x1b[1m\x1b[31mE     ./setup.py:35:1: E101 indentation contains mixed spaces and tabs\x1b[0m\n'}
+[0.580416] (rover) StdoutLine: {'line': b'\x1b[1m\x1b[31mE     ./setup.py:36:1: W191 indentation contains tabs\x1b[0m\n'}
+[0.580444] (rover) StdoutLine: {'line': b'\x1b[1m\x1b[31mE     ./setup.py:36:1: E101 indentation contains mixed spaces and tabs\x1b[0m\n'}
+[0.580470] (rover) StdoutLine: {'line': b'\x1b[1m\x1b[31mE     ./setup.py:37:1: W191 indentation contains tabs\x1b[0m\n'}
+[0.580501] (rover) StdoutLine: {'line': b'\x1b[1m\x1b[31mE     ./setup.py:37:1: E101 indentation contains mixed spaces and tabs\x1b[0m\n'}
+[0.580527] (rover) StdoutLine: {'line': b'\x1b[1m\x1b[31mE   assert 1 == 0\x1b[0m\n'}
+[0.580553] (rover) StdoutLine: {'line': b'----------------------------- Captured stdout call -----------------------------\n'}
+[0.580579] (rover) StdoutLine: {'line': b'\n'}
+[0.580605] (rover) StdoutLine: {'line': b'./setup.py:34:1: W191 indentation contains tabs\n'}
+[0.580632] (rover) StdoutLine: {'line': b'\t(\n'}
+[0.580658] (rover) StdoutLine: {'line': b'^\n'}
+[0.580684] (rover) StdoutLine: {'line': b'\n'}
+[0.580710] (rover) StdoutLine: {'line': b'./setup.py:34:1: E101 indentation contains mixed spaces and tabs\n'}
+[0.580742] (rover) StdoutLine: {'line': b'\t(\n'}
+[0.580768] (rover) StdoutLine: {'line': b'^\n'}
+[0.580794] (rover) StdoutLine: {'line': b'\n'}
+[0.580818] (rover) StdoutLine: {'line': b'./setup.py:35:1: W191 indentation contains tabs\n'}
+[0.580843] (rover) StdoutLine: {'line': b"\t    os.path.join('share', package_name, 'config'),\n"}
+[0.580868] (rover) StdoutLine: {'line': b'^\n'}
+[0.580893] (rover) StdoutLine: {'line': b'\n'}
+[0.580918] (rover) StdoutLine: {'line': b'./setup.py:35:1: E101 indentation contains mixed spaces and tabs\n'}
+[0.580943] (rover) StdoutLine: {'line': b"\t    os.path.join('share', package_name, 'config'),\n"}
+[0.580967] (rover) StdoutLine: {'line': b'^\n'}
+[0.580991] (rover) StdoutLine: {'line': b'\n'}
+[0.581016] (rover) StdoutLine: {'line': b'./setup.py:36:1: W191 indentation contains tabs\n'}
+[0.581048] (rover) StdoutLine: {'line': b"\t    glob('config/*')\n"}
+[0.581074] (rover) StdoutLine: {'line': b'^\n'}
+[0.581099] (rover) StdoutLine: {'line': b'\n'}
+[0.581124] (rover) StdoutLine: {'line': b'./setup.py:36:1: E101 indentation contains mixed spaces and tabs\n'}
+[0.581149] (rover) StdoutLine: {'line': b"\t    glob('config/*')\n"}
+[0.581173] (rover) StdoutLine: {'line': b'^\n'}
+[0.581197] (rover) StdoutLine: {'line': b'\n'}
+[0.581222] (rover) StdoutLine: {'line': b'./setup.py:37:1: W191 indentation contains tabs\n'}
+[0.581247] (rover) StdoutLine: {'line': b'\t),\n'}
+[0.581272] (rover) StdoutLine: {'line': b'^\n'}
+[0.581298] (rover) StdoutLine: {'line': b'\n'}
+[0.581326] (rover) StdoutLine: {'line': b'./setup.py:37:1: E101 indentation contains mixed spaces and tabs\n'}
+[0.581354] (rover) StdoutLine: {'line': b'\t),\n'}
+[0.581380] (rover) StdoutLine: {'line': b'^\n'}
+[0.581406] (rover) StdoutLine: {'line': b'\n'}
+[0.581432] (rover) StdoutLine: {'line': b'4     E101 indentation contains mixed spaces and tabs\n'}
+[0.581457] (rover) StdoutLine: {'line': b'4     W191 indentation contains tabs\n'}
+[0.581483] (rover) StdoutLine: {'line': b'\n'}
+[0.581508] (rover) StdoutLine: {'line': b'7 files checked\n'}
+[0.581532] (rover) StdoutLine: {'line': b'8 errors\n'}
+[0.581558] (rover) StdoutLine: {'line': b'\n'}
+[0.581583] (rover) StdoutLine: {'line': b"'E'-type errors: 4\n"}
+[0.581608] (rover) StdoutLine: {'line': b"'W'-type errors: 4\n"}
+[0.581634] (rover) StdoutLine: {'line': b'\n'}
+[0.581658] (rover) StdoutLine: {'line': b'Checked files:\n'}
+[0.581683] (rover) StdoutLine: {'line': b'\n'}
+[0.581707] (rover) StdoutLine: {'line': b'* ./setup.py\n'}
+[0.581732] (rover) StdoutLine: {'line': b'* ./test/test_pep257.py\n'}
+[0.581758] (rover) StdoutLine: {'line': b'* ./test/test_flake8.py\n'}
+[0.581782] (rover) StdoutLine: {'line': b'* ./test/test_copyright.py\n'}
+[0.581806] (rover) StdoutLine: {'line': b'* ./launch/spawn.launch.py\n'}
+[0.581830] (rover) StdoutLine: {'line': b'* ./launch/gazebo.launch.py\n'}
+[0.581855] (rover) StdoutLine: {'line': b'* ./rover/__init__.py\n'}
+[0.581880] (rover) StdoutLine: {'line': b'----------------------------- Captured stderr call -----------------------------\n'}
+[0.581908] (rover) StdoutLine: {'line': b'option --max-complexity: please update from optparse string `type=` to argparse callable `type=` -- this will be an error in the future\n'}
+[0.581936] (rover) StdoutLine: {'line': b'---- generated xml file: /home/cv-02/all_weather_ws/build/rover/pytest.xml -----\n'}
+[0.581962] (rover) StdoutLine: {'line': b'=========================== short test summary info ============================\n'}
+[0.581988] (rover) StdoutLine: {'line': b'FAILED test/test_flake8.py::test_flake8 - AssertionError: Found 8 code style ...\n'}
+[0.582014] (rover) StdoutLine: {'line': b'\x1b[31m==================== \x1b[31m\x1b[1m1 failed\x1b[0m, \x1b[32m1 passed\x1b[0m, \x1b[33m1 skipped\x1b[0m\x1b[31m in 0.18s\x1b[0m\x1b[31m ====================\x1b[0m\n'}
+[0.600306] (-) TimerEvent: {}
+[0.619293] (rover) CommandEnded: {'returncode': 1}
+[0.619806] (rover) TestFailure: {'identifier': 'rover'}
+[0.619827] (rover) JobEnded: {'identifier': 'rover', 'rc': 0}
+[0.620051] (-) EventReactorShutdown: {}

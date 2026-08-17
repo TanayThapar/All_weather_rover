@@ -1,0 +1,5 @@
+[0.058s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'test-result', '--all']
+[0.058s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base=None, log_level=None, verb_name='test-result', test_result_base='build', all=True, result_files_only=False, verbose=False, delete=False, delete_yes=False, mixin_files=None, mixin=None, verb_parser=<colcon_mixin.mixin.mixin_argument.MixinArgumentDecorator object at 0x700f90eb0850>, verb_extension=<colcon_test_result.verb.test_result.TestResultVerb object at 0x700f90e72f80>, main=<bound method TestResultVerb.main of <colcon_test_result.verb.test_result.TestResultVerb object at 0x700f90e72f80>>, mixin_verb=('test-result',))
+[0.063s] Level 1:colcon.colcon_test_result.test_result:get_test_results(ctest)
+[0.063s] Level 1:colcon.colcon_test_result.test_result:get_test_results(xunit)
+[0.063s] WARNING:colcon.colcon_test_result.test_result.xunit:Skipping 'build/rover/package.xml': not well-formed (invalid token): line 1, column 0

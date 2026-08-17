@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<robot name="all_weather_explorer"
+       xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <!-- Include all robot components -->
+  <xacro:include filename="$(find rover)/urdf/materials.xacro"/>
+  <xacro:include filename="$(find rover)/urdf/base.xacro"/>
+  <xacro:include filename="$(find rover)/urdf/wheels.xacro"/>
+  <xacro:include filename="$(find rover)/urdf/sensors.xacro"/>
+  <xacro:include filename="$(find rover)/urdf/gazebo.xacro"/>
+  <xacro:include filename="$(find rover)/urdf/ros2_control.xacro"/>
+
+  <!-- Instantiate the robot -->
+  <xacro:rover_base/>
+  <xacro:rover_wheels/>
+  <xacro:rover_sensors/>
+  <xacro:rover_gazebo/>
+  <xacro:rover_ros2_control/>
+
+</robot>
