@@ -8,16 +8,29 @@ An autonomous ROS 2 robot platform and simulation workspace designed for navigat
 
 ---
 
-## 🌟 Overview
+## 🔬 Research Focus & Key Breakthrough: Radar-Centric Multi-Sensor Fusion
 
-Standard visual/optical sensors like LiDAR and RGB cameras degrade significantly during adverse weather or dense fog. The **All Weather Rover** features a modular Xacro component system with Ackermann steering capabilities and multi-sensor fusion:
+> [!IMPORTANT]
+> **Core Academic Contribution:** Standard visual and optical perception pipelines (e.g., LiDAR SLAM, Visual Odometry) experience severe degradation or total failure in hostile ambient conditions such as dense fog, dust storms, heavy rain, or zero-illumination environments. 
+>
+> This research project addresses this fundamental vulnerability by placing **4D mmWave Radar at the core of the multi-sensor fusion pipeline**:
+> 
+> 1. **Weather-Resistant Sensing:** 4D mmWave Radar operates at radio frequencies capable of penetrating dense aerosol particles and fog that completely blind optical LiDAR lasers and RGB/depth cameras.
+> 2. **Direct Doppler Velocity Estimation:** Unlike position-derivative odometry from LiDAR/cameras, 4D Radar directly measures instant relative Doppler velocity profiles per point cloud target, providing reliable instantaneous velocity priors during severe dynamic maneuvers.
+> 3. **Robust State Estimation & SLAM:** By fusing 4D mmWave Radar target point clouds with IMU inertial integration, Thermal IR vision, and fall-back optical LiDAR, the state estimator maintains resilient state estimation, mapping, and obstacle avoidance even under complete optical blackout ($0\text{ m}$ visual range).
 
-- **4D mmWave Radar (`radar_front_link`):** Front-mounted to penetrate thick fog, dust, and rain while tracking doppler velocity and obstacle range.
-- **360° LiDAR (`lidar_top_link`):** Mast-mounted high-resolution LiDAR for 3D point-cloud map building in clear-to-moderate conditions.
-- **Thermal Infrared Camera (`camera_thermal_link`):** Provides high-contrast vision in zero-light or low-visibility scenarios.
-- **RTK GNSS / GPS (`gps_link`):** Rear-mast mounted positioning module for open-sky localization.
-- **6-DOF IMU (`imu_link`):** Centrally mounted at the center-of-mass to minimize lever-arm noise during state estimation.
-- **Ackermann Steering & Controllers:** Integrated with `ros2_control` and `gz_ros2_control` for realistic vehicle physics.
+---
+
+## 🌟 Sensor Payload Overview
+
+The **All Weather Rover** features a modular Xacro component system with Ackermann steering capabilities and multi-sensor fusion:
+
+- **4D mmWave Radar (`radar_front_link`):** *[Primary Sensor for Research]* Front-mounted to penetrate thick fog, dust, and rain while tracking Doppler velocity vector fields and long-range obstacle boundaries.
+- **360° LiDAR (`lidar_top_link`):** Mast-mounted high-resolution LiDAR for geometric 3D point-cloud mapping under clear-to-moderate atmospheric conditions.
+- **Thermal Infrared Camera (`camera_thermal_link`):** Provides high-contrast thermal vision in zero-light, nocturnal, or smoke-obscured environments.
+- **RTK GNSS / GPS (`gps_link`):** Rear-mast mounted positioning module for global reference initialization in open-sky regions.
+- **6-DOF IMU (`imu_link`):** Centrally mounted at the exact center-of-mass (CoM) to minimize lever-arm noise during high-rate inertial propagation.
+- **Ackermann Steering & Controllers:** Integrated with `ros2_control` and `gz_ros2_control` for realistic vehicle physics and motion modeling.
 
 ---
 
@@ -49,14 +62,14 @@ All_weather_rover/
 
 ## 🤖 Robot Specifications & Sensor Payload
 
-| Component | Joint / Frame Name | Relative Offset `(x, y, z)` | Function / Description |
+| Component | Joint / Frame Name | Relative Offset `(x, y, z)` | Research Function / Sensor Role |
 | :--- | :--- | :--- | :--- |
 | **Base Chassis** | `base_link` | `(0.0, 0.0, 0.0)` | Primary reference frame ($80\text{ cm} \times 50\text{ cm} \times 30\text{ cm}$) |
-| **IMU** | `imu_link` | `(0.0, 0.0, 0.0)` | Mounted at CoM for precise inertial tracking |
-| **4D Radar** | `radar_front_link` | `(0.40, 0.0, 0.15)` | Low front placement for fog penetration & velocity tracking |
-| **LiDAR** | `lidar_top_link` | `(0.0, 0.0, 0.60)` | Elevated mast mounting for unobstructed 360° FOV |
-| **Thermal Camera** | `camera_thermal_link` | `(0.10, 0.0, 0.50)` | Forward-facing thermal vision sensor |
-| **RTK GPS** | `gps_link` | `(-0.30, 0.0, 0.80)` | High rear mast position for satellite line-of-sight |
+| **IMU** | `imu_link` | `(0.0, 0.0, 0.0)` | Centrally aligned for zero lever-arm noise in EKF/Factor Graph fusion |
+| **4D Radar** | `radar_front_link` | `(0.40, 0.0, 0.15)` | **Core Research Sensor**: Fog penetration & instant Doppler velocity measurement |
+| **LiDAR** | `lidar_top_link` | `(0.0, 0.0, 0.60)` | Elevated mast mounting for 360° optical point-cloud verification |
+| **Thermal Camera** | `camera_thermal_link` | `(0.10, 0.0, 0.50)` | Optical backup providing thermal intensity imagery in zero-light scenarios |
+| **RTK GPS** | `gps_link` | `(-0.30, 0.0, 0.80)` | High rear mast position for global ground-truth comparison |
 
 ---
 
