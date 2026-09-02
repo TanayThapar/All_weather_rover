@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="MacRoboticsSimulator – A high-performance 3D robotics simulator built on Three.js and Cannon-es, designed as a Gazebo alternative for Apple Silicon." />
+    <title>MacRoboticsSimulator</title>
+    <link rel="stylesheet" href="/src/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <canvas id="sim-canvas"></canvas>
+
+    <!-- HUD -->
+    <div id="hud">
+      <div id="hud-header">
+        <div id="hud-logo">
+          <div id="hud-logo-icon">⬡</div>
+          <div>
+            <div id="hud-title">MacRoboticsSimulator</div>
+            <div id="hud-subtitle">v0.3.0 · All Weather Rover Sim</div>
+          </div>
+        </div>
+        <div id="hud-badges">
+          <span class="badge badge-green">● LIVE</span>
+          <span class="badge badge-blue">Three.js</span>
+          <span class="badge badge-purple">Cannon-es</span>
+          <span class="badge badge-orange" id="cam-mode-badge">🔭 Orbit</span>
+          <span class="badge badge-purple" id="auto-mode-badge">🕹️ MANUAL</span>
+          <span class="badge badge-blue" id="weather-badge">☀️ CLEAR</span>
+        </div>
+      </div>
+
+      <div id="hud-body">
+        <!-- Weather Selector Panel -->
+        <div class="panel" id="weather-panel">
+          <div class="panel-title">ENVIRONMENT & WEATHER CONDITIONS</div>
+          <div class="weather-btn-grid">
+            <button class="wbtn active" data-weather="clear">☀️ Clear</button>
+            <button class="wbtn" data-weather="fog">🌫️ Dense Fog</button>
+            <button class="wbtn" data-weather="sandstorm">🌪️ Dust Storm</button>
+            <button class="wbtn" data-weather="rain">🌧️ Heavy Rain</button>
+            <button class="wbtn" data-weather="night">🌑 Zero Light</button>
+          </div>
+          <div id="weather-degrade-info" class="weather-info-box">
+            <div class="w-impact"><span class="w-label">LiDAR:</span> <span id="w-lidar-impact" class="w-val">Optimal (30m, 0% noise)</span></div>
+            <div class="w-impact"><span class="w-label">Camera:</span> <span id="w-cam-impact" class="w-val">Optimal visual + thermal</span></div>
+            <div class="w-impact"><span class="w-label">Radar:</span> <span id="w-radar-impact" class="w-val">Primary sensor nominal</span></div>
+            <div class="w-impact"><span class="w-label">Traction:</span> <span id="w-traction-impact" class="w-val">High (μ = 0.85)</span></div>
+          </div>
+        </div>
+
+        <!-- Stats panel -->
+        <div class="panel" id="stats-panel">
+          <div class="panel-title">TELEMETRY</div>
+          <div class="stat-row"><span class="stat-label">FPS</span><span class="stat-value" id="stat-fps">--</span></div>
+          <div class="stat-row"><span class="stat-label">Speed</span><span class="stat-value" id="stat-speed">0.00 m/s</span></div>
+          <div class="stat-row"><span class="stat-label">Heading</span><span class="stat-value" id="stat-heading">0°</span></div>
+          <div class="stat-row"><span class="stat-label">Pos X</span><span class="stat-value" id="stat-x">0.00</span></div>
+          <div class="stat-row"><span class="stat-label">Pos Z</span><span class="stat-value" id="stat-z">0.00</span></div>
+        </div>
+
+        <!-- Controls panel -->
+        <div class="panel" id="controls-panel">
+          <div class="panel-title">CONTROLS</div>
+          <div class="key-grid">
+            <div></div>
+            <div class="key-btn" id="key-up">▲</div>
+            <div></div>
+            <div class="key-btn" id="key-left">◀</div>
+            <div class="key-btn" id="key-down">▼</div>
+            <div class="key-btn" id="key-right">▶</div>
+          </div>
+          <div class="control-hint">Arrow keys / <b>WASD</b> to drive</div>
+          <div class="control-hint">Mouse to orbit camera</div>
+          <div class="control-hint">Scroll to zoom</div>
+          <div class="control-hint"><b>C</b> drop obstacle · <b>R</b> reset</div>
+          <div class="control-hint"><b>E</b>: <b>Toggle Autonomous</b> · <b>V</b>: <b>Cycle Weather</b></div>
+          <div class="control-hint" style="margin-top:8px;border-top:1px solid rgba(99,157,255,0.1);padding-top:6px;"><b>1</b> Orbit · <b>2</b> Follow · <b>3</b> Top · <b>4</b> Hood</div>
+        </div>
+      </div>
+
+      <!-- Motor indicator -->
+      <div class="panel" id="motor-panel">
+        <div class="panel-title">MOTORS</div>
+        <div class="motor-row">
+          <span class="stat-label">LEFT</span>
+          <div class="motor-bar-bg"><div class="motor-bar" id="motor-left"></div></div>
+        </div>
+        <div class="motor-row">
+          <span class="stat-label">RIGHT</span>
+          <div class="motor-bar-bg"><div class="motor-bar" id="motor-right"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== SENSOR DATA PANEL ========== -->
+    <div id="sensor-panel">
+      <div id="sensor-header">
+        <div id="sensor-title">📡 SENSOR DATA OUTPUT</div>
+        <div id="sensor-tabs">
+          <button class="stab active" data-tab="lidar">LiDAR</button>
+          <button class="stab" data-tab="explore">⚡ Frontier SLAM</button>
+          <button class="stab" data-tab="radar">Radar</button>
+          <button class="stab" data-tab="camera">Camera</button>
+          <button class="stab" data-tab="gps">GPS</button>
+          <button class="stab" data-tab="imu">IMU</button>
+        </div>
+      </div>
+
+            <!-- FRONTIER SLAM & AUTONOMY -->
+      <div class="sensor-tab-content" id="tab-explore">
+        <div class="sensor-section-title">Global Occupancy Grid & Frontier Extraction</div>
+        <div class="vis-canvas-wrap">
+          <canvas id="slam-canvas" width="322" height="280"></canvas>
+          <div class="vis-overlay">
+            <span class="vo-pill green" id="explored-pct-ov">0.0% MAP</span>
+            <span class="vo-pill orange" id="frontiers-count-ov">0 FRONTIERS</span>
+          </div>
+        </div>
+        <div style="display:flex; gap:8px; margin-top:8px;">
+          <button id="btn-toggle-auto" class="auto-btn">⚡ TOGGLE AUTONOMOUS EXPLORATION</button>
+        </div>
+        <div class="map-record-toolbar">
+          <button id="btn-record-map" class="rec-btn">⏺️ START RECORDING MAP</button>
+          <button id="btn-export-map" class="export-btn" title="Export High-Res PGM / PNG Map">💾 EXPORT MAP</button>
+          <button id="btn-clear-map" class="clear-btn" title="Reset Grid Map">🗑️ RESET</button>
+        </div>
+        <div class="map-stats-strip">
+          <div class="mstat"><span class="ms-lbl">Recording:</span> <span id="rec-status" class="ms-val sval-orange">OFF</span></div>
+          <div class="mstat"><span class="ms-lbl">Trajectory:</span> <span id="rec-nodes" class="ms-val">0 poses</span></div>
+          <div class="mstat"><span class="ms-lbl">Grid Cells:</span> <span id="rec-cells" class="ms-val">0 free / 0 occ</span></div>
+        </div>
+        <!-- Recorded Obstacle Registry & Landmark Log -->
+        <div class="sensor-section-title" style="margin-top:10px; display:flex; justify-content:space-between; align-items:center;">
+          <span>RECORDED OBSTACLES & HAZARDS</span>
+          <span id="rec-obs-count" class="vo-pill orange" style="font-size:8px; padding:1px 6px;">0 DETECTED</span>
+        </div>
+        <div class="obs-table-wrap">
+          <table class="sensor-table" id="obs-registry-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Type</th>
+                <th>Global (X, Z)</th>
+                <th>Size / Radar</th>
+                <th>Timestamp</th>
+              </tr>
+            </thead>
+            <tbody id="obs-registry-tbody">
+              <tr><td colspan="5" style="color:#7a90b8;text-align:center;">No obstacles registered yet</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="display:flex; gap:6px; margin-top:6px;">
+          <button id="btn-export-obs-json" class="export-btn" style="flex:1;">📄 EXPORT OBSTACLES (JSON)</button>
+          <button id="btn-export-obs-csv" class="export-btn" style="flex:1;">📊 EXPORT REPORT (CSV)</button>
+        </div>
+
+        <div class="sensor-grid-3" style="margin-top:8px">
+          <div class="sdat"><span class="slab">Nav State</span><span class="sval sval-green" id="nav-state">IDLE</span></div>
+          <div class="sdat"><span class="slab">Target Goal</span><span class="sval" id="nav-goal">--</span></div>
+          <div class="sdat"><span class="slab">Dist to Goal</span><span class="sval" id="nav-dist">-- m</span></div>
+        </div>
+      </div>
+
+      <!-- LiDAR -->
+      <div class="sensor-tab-content active" id="tab-lidar">
+        <div class="sensor-section-title">360° LiDAR · 2D Occupancy Map (4-channel)</div>
+        <div class="vis-canvas-wrap">
+          <canvas id="lidar-canvas" width="322" height="280"></canvas>
+          <div class="vis-overlay">
+            <span class="vo-pill green" id="lidar-pts-ov">-- pts</span>
+            <span class="vo-pill blue" id="lidar-near-ov">-- m</span>
+          </div>
+        </div>
+        <div class="sensor-grid-3" style="margin-top:8px">
+          <div class="sdat"><span class="slab">RPM</span><span class="sval" id="lidar-rpm">600</span></div>
+          <div class="sdat"><span class="slab">Nearest</span><span class="sval" id="lidar-near">-- m</span></div>
+          <div class="sdat"><span class="slab">Bearing</span><span class="sval" id="lidar-bearing">--°</span></div>
+        </div>
+      </div>
+
+      <!-- Radar -->
+      <div class="sensor-tab-content" id="tab-radar">
+        <div class="sensor-section-title">4D mmWave Radar · PPI Display  |  77 GHz  |  FOV 60°  |  100 m</div>
+        <div class="vis-canvas-wrap">
+          <canvas id="radar-canvas" width="322" height="280"></canvas>
+          <div class="vis-overlay">
+            <span class="vo-pill green" id="radar-targets-ov">0 tgts</span>
+            <span class="vo-pill orange" id="radar-sweep-ov">RPM 20</span>
+          </div>
+        </div>
+        <div class="sensor-grid-3" style="margin-top:8px">
+          <div class="sdat"><span class="slab">Status</span><span class="sval sval-green">ACTIVE</span></div>
+          <div class="sdat"><span class="slab">Targets</span><span class="sval" id="radar-targets">0</span></div>
+          <div class="sdat"><span class="slab">Max Doppler</span><span class="sval" id="radar-max-dop">-- m/s</span></div>
+        </div>
+      </div>
+
+      <!-- Camera -->
+      <div class="sensor-tab-content" id="tab-camera">
+        <div class="sensor-section-title">Thermal IR Camera · LWIR Teleop Feed  |  8–14 μm  |  640×512</div>
+        <div class="cam-canvas-wrap">
+          <canvas id="cam-canvas" width="322" height="210"></canvas>
+          <div class="cam-hud">
+            <div class="cam-hud-row">
+              <span class="cam-hud-chip">LWIR</span>
+              <span class="cam-hud-chip" id="cam-fps-chip">30 FPS</span>
+              <span class="cam-hud-chip sval-green">REC ●</span>
+            </div>
+            <div class="cam-crosshair">⊕</div>
+            <div class="cam-hud-row cam-hud-bottom">
+              <span class="cam-hud-chip" id="cam-temp-chip">-- °C</span>
+              <span class="cam-hud-chip" id="cam-contrast-chip">AGC: --</span>
+            </div>
+          </div>
+        </div>
+        <div class="sensor-grid-3" style="margin-top:8px">
+          <div class="sdat"><span class="slab">Scene Temp</span><span class="sval" id="cam-temp">-- °C</span></div>
+          <div class="sdat"><span class="slab">Contrast</span><span class="sval" id="cam-contrast">--</span></div>
+          <div class="sdat"><span class="slab">Hot Blobs</span><span class="sval" id="cam-blob-count">0</span></div>
+        </div>
+      </div>
+
+      <!-- GPS -->
+      <div class="sensor-tab-content" id="tab-gps">
+        <div class="sensor-section-title">RTK GNSS / GPS</div>
+        <div class="sensor-grid-2">
+          <div class="sdat"><span class="slab">Fix type</span><span class="sval sval-green" id="gps-fix">RTK FIXED</span></div>
+          <div class="sdat"><span class="slab">Satellites</span><span class="sval" id="gps-sats">--</span></div>
+          <div class="sdat"><span class="slab">Lat</span><span class="sval" id="gps-lat">--</span></div>
+          <div class="sdat"><span class="slab">Lon</span><span class="sval" id="gps-lon">--</span></div>
+          <div class="sdat"><span class="slab">Alt (m)</span><span class="sval" id="gps-alt">--</span></div>
+          <div class="sdat"><span class="slab">HDOP</span><span class="sval" id="gps-hdop">--</span></div>
+          <div class="sdat"><span class="slab">Speed (m/s)</span><span class="sval" id="gps-speed">--</span></div>
+          <div class="sdat"><span class="slab">Course (°)</span><span class="sval" id="gps-course">--</span></div>
+        </div>
+      </div>
+
+      <!-- IMU -->
+      <div class="sensor-tab-content" id="tab-imu">
+        <div class="sensor-section-title">6-DOF IMU · Centre of Mass</div>
+        <div class="sensor-grid-3">
+          <div class="sdat"><span class="slab">Acc X</span><span class="sval" id="imu-ax">--</span></div>
+          <div class="sdat"><span class="slab">Acc Y</span><span class="sval" id="imu-ay">--</span></div>
+          <div class="sdat"><span class="slab">Acc Z</span><span class="sval" id="imu-az">--</span></div>
+          <div class="sdat"><span class="slab">Gyr X</span><span class="sval" id="imu-gx">--</span></div>
+          <div class="sdat"><span class="slab">Gyr Y</span><span class="sval" id="imu-gy">--</span></div>
+          <div class="sdat"><span class="slab">Gyr Z</span><span class="sval" id="imu-gz">--</span></div>
+          <div class="sdat"><span class="slab">Roll</span><span class="sval" id="imu-roll">--</span></div>
+          <div class="sdat"><span class="slab">Pitch</span><span class="sval" id="imu-pitch">--</span></div>
+          <div class="sdat"><span class="slab">Yaw</span><span class="sval" id="imu-yaw">--</span></div>
+        </div>
+        <div class="sensor-section-title" style="margin-top:10px">Orientation Quaternion</div>
+        <div class="sensor-grid-2">
+          <div class="sdat"><span class="slab">qW</span><span class="sval" id="imu-qw">--</span></div>
+          <div class="sdat"><span class="slab">qX</span><span class="sval" id="imu-qx">--</span></div>
+          <div class="sdat"><span class="slab">qY</span><span class="sval" id="imu-qy">--</span></div>
+          <div class="sdat"><span class="slab">qZ</span><span class="sval" id="imu-qz">--</span></div>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

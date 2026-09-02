@@ -114,3 +114,21 @@ ros2 launch rover gazebo.launch.py
 ## 📜 License
 
 This project is licensed under the [Apache-2.0 License](package.xml).
+
+---
+
+## 🌐 Web-Based 3D Physics Simulator & SLAM Testbed
+
+A web-based 3D robotics simulator built on **Three.js** and **Cannon-es** physics for high-performance simulation on Apple Silicon and web browsers:
+
+- **Realistic Sensor Emulation:** 360° LiDAR, 4D mmWave Radar (77 GHz with Doppler tracking), LWIR Thermal Infrared Camera, RTK GPS, and 6-DOF IMU.
+- **Dynamic Weather System:** Dense Fog, Dust Storm, Heavy Rain, Zero-Light Night, and Clear conditions with real-time sensor degradation (beam dropout, particulate scattering, traction reduction).
+- **Frontier SLAM & Autonomy:** Live 2D global occupancy grid mapping with autonomous frontier exploration, artificial potential field (APF) obstacle avoidance, landmark recording, and map export.
+
+### Quick Start
+```bash
+cd simulator
+npm install
+npm run dev
+```
+Open `http://localhost:5173` to run the simulator.
