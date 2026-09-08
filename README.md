@@ -3,8 +3,11 @@
 ![ROS 2](https://img.shields.io/badge/ROS%202-Humble%20%7C%20Jazzy-blue?logo=ros)
 ![Gazebo](https://img.shields.io/badge/Gazebo-Sim-orange?logo=gazebo)
 ![License](https://img.shields.io/badge/License-Apache%202.0-green)
+[![Vercel](https://img.shields.io/badge/Vercel-Live%20Simulator-black?logo=vercel)](https://simulator-bay-gamma.vercel.app)
 
 An autonomous ROS 2 robot platform and simulation workspace designed for navigation, localization, and control in harsh, degraded environmental conditions—such as dense fog, urban canyons, atmospheric dust, and GPS-denied environments.
+
+🌐 **Live 3D Web Simulator:** [https://simulator-bay-gamma.vercel.app](https://simulator-bay-gamma.vercel.app)
 
 ---
 
@@ -18,6 +21,26 @@ An autonomous ROS 2 robot platform and simulation workspace designed for navigat
 > 1. **Weather-Resistant Sensing:** 4D mmWave Radar operates at radio frequencies capable of penetrating dense aerosol particles and fog that completely blind optical LiDAR lasers and RGB/depth cameras.
 > 2. **Direct Doppler Velocity Estimation:** Unlike position-derivative odometry from LiDAR/cameras, 4D Radar directly measures instant relative Doppler velocity profiles per point cloud target, providing reliable instantaneous velocity priors during severe dynamic maneuvers.
 > 3. **Robust State Estimation & SLAM:** By fusing 4D mmWave Radar target point clouds with IMU inertial integration, Thermal IR vision, and fall-back optical LiDAR, the state estimator maintains resilient state estimation, mapping, and obstacle avoidance even under complete optical blackout ($0\text{ m}$ visual range).
+
+---
+
+## 🌐 Web-Based 3D Physics Simulator & SLAM Testbed
+
+A high-performance web-based 3D robotics simulator built on **Three.js** and **Cannon-es** physics, designed as an accessible Gazebo alternative and digital twin:
+👉 **[Launch Live Simulator](https://simulator-bay-gamma.vercel.app)**
+
+- **Realistic Sensor Emulation:** 360° LiDAR, 4D mmWave Radar (77 GHz with Doppler tracking), LWIR Thermal Infrared Camera, RTK GPS, and 6-DOF IMU.
+- **Dynamic Weather System:** Dense Fog, Dust Storm, Heavy Rain, Zero-Light Night, and Clear conditions with real-time sensor degradation (beam dropout, particulate scattering, traction reduction).
+- **Frontier SLAM & Autonomy:** Live 2D global occupancy grid mapping with autonomous frontier exploration, artificial potential field (APF) obstacle avoidance, landmark recording, and map export.
+- **Interactive Controls:** Multiple camera perspectives (Orbit, Chase, FPV, Top-down), live telemetry dashboard, and manual / autonomous drive modes.
+
+### Local Development
+```bash
+cd simulator
+npm install
+npm run dev
+```
+Open `http://localhost:5173` to run the simulator locally.
 
 ---
 
@@ -38,6 +61,12 @@ The **All Weather Rover** features a modular Xacro component system with Ackerma
 
 ```
 All_weather_rover/
+├── simulator/                         # Web-based 3D robotics simulator (Three.js + Cannon-es, deployed on Vercel)
+│   ├── index.html                     # Simulation canvas & telemetry HUD
+│   ├── package.json                   # Vite & frontend dependencies
+│   └── src/
+│       ├── main.js                    # 3D physics, SLAM, sensor simulation, and vehicle controller
+│       └── style.css                  # HUD and UI styling
 ├── src/
 │   └── rover/
 │       ├── config/
@@ -73,7 +102,7 @@ All_weather_rover/
 
 ---
 
-## 🚀 Getting Started
+## 🚀 Getting Started (ROS 2 / Gazebo)
 
 ### Prerequisites
 
@@ -114,21 +143,3 @@ ros2 launch rover gazebo.launch.py
 ## 📜 License
 
 This project is licensed under the [Apache-2.0 License](package.xml).
-
----
-
-## 🌐 Web-Based 3D Physics Simulator & SLAM Testbed
-
-A web-based 3D robotics simulator built on **Three.js** and **Cannon-es** physics for high-performance simulation on Apple Silicon and web browsers:
-
-- **Realistic Sensor Emulation:** 360° LiDAR, 4D mmWave Radar (77 GHz with Doppler tracking), LWIR Thermal Infrared Camera, RTK GPS, and 6-DOF IMU.
-- **Dynamic Weather System:** Dense Fog, Dust Storm, Heavy Rain, Zero-Light Night, and Clear conditions with real-time sensor degradation (beam dropout, particulate scattering, traction reduction).
-- **Frontier SLAM & Autonomy:** Live 2D global occupancy grid mapping with autonomous frontier exploration, artificial potential field (APF) obstacle avoidance, landmark recording, and map export.
-
-### Quick Start
-```bash
-cd simulator
-npm install
-npm run dev
-```
-Open `http://localhost:5173` to run the simulator.
