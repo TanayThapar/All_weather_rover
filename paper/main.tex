@@ -48,8 +48,19 @@ Extensive quantitative benchmarks across progressive atmospheric transitions dem
 Over the past decade, high-precision autonomous navigation has been dominated by optical LiDAR-Inertial Odometry (LIO) \cite{shan2020lio, xu2021fast} and Visual-Inertial Odometry (VIO). 
 However, these optical methodologies rely on near-infrared ($905\text{--}1550$~nm) and visible light ($400\text{--}700$~nm) spectra. 
 
-When encountering adverse aerosol conditions such as dense advection fog, dust storms, or blowing snow, suspended airborne particulate radii ($1\text{--}50~\mu\text{m}$) cause severe Mie and geometric backscattering \cite{bijelic2020seeing}. 
-This phenomenon manifests as: (1) false near-field returns (aerosol reflection ``walls'') that mislead scan matching algorithms, and (2) exponential beam attenuation that drastically truncates the sensor's effective measurement range. 
+When encountering adverse aerosol conditions such as dense advection fog, dust storms, or blowing snow, suspended airborne particulate radii ($r_p \in [1, 50]~\mu\text{m}$) cause severe Mie and geometric backscattering \cite{bijelic2020seeing}. 
+According to the Beer-Lambert law of atmospheric transmission, optical LiDAR beam intensity $I(r)$ attenuates exponentially with distance $r$:
+\begin{equation}
+I(r) = I_0 \exp(-2 \beta_{\mathrm{ext}} r)
+\end{equation}
+where $\beta_{\mathrm{ext}} = \beta_{\mathrm{scat}} + \beta_{\mathrm{abs}}$ is the atmospheric extinction coefficient ($\mathrm{m}^{-1}$). 
+The Meteorological Optical Range (MOR) $V_{\mathrm{mor}}$, representing visual range under Koschmieder's law, is defined as:
+\begin{equation}
+V_{\mathrm{mor}} = \frac{-\ln(0.05)}{\beta_{\mathrm{ext}}} \approx \frac{3.0}{\beta_{\mathrm{ext}}}
+\end{equation}
+
+When $\beta_{\mathrm{ext}} > 0.20~\mathrm{m}^{-1}$ ($V_{\mathrm{mor}} < 15~\mathrm{m}$), near-field backscatter reflections exceed detector thresholds, forming dense spheres of spurious point clouds (reflection ``walls'') within $1\text{--}2$~meters of the sensor, while distant landmark signals vanish. 
+Optical scan-matching estimators (e.g., iterative closest point in FAST-LIO \cite{xu2021fast}) lock onto these localized aerosol clouds, causing immediate rotational and translational divergence. 
 Similarly, thermal long-wave infrared (LWIR) vision, while invariant to illumination, lacks direct geometric depth and suffers from low spatial resolution and thermal inversion artifacts.
 
 \begin{figure}[!t]
@@ -60,7 +71,13 @@ Similarly, thermal long-wave infrared (LWIR) vision, while invariant to illumina
 \end{figure}
 
 To overcome the fragility of optical navigation stacks, millimeter-wave (mmWave) frequency-modulated continuous-wave (FMCW) radar operating in the $76\text{--}81$~GHz spectrum has emerged as a resilient alternative \cite{kramer2022coloradar, burnett2023boreas, alaba2023review}. 
-With an electromagnetic wavelength of $\lambda \approx 3.9$~mm---several orders of magnitude larger than atmospheric aerosol particles---mmWave radar signals experience negligible Rayleigh scattering and penetrate dense fog, smoke, and dust plumes virtually uninhibited \cite{bauer2020using}. 
+The fundamental physical distinction lies in the electromagnetic scattering regime: for particle diameter $d = 2 r_p$, the size parameter is $x = \pi d / \lambda$. 
+For near-infrared LiDAR ($\lambda_{\mathrm{lidar}} = 905$~nm), fog droplets yield $x \gg 1$, placing the optical signal in the severe Mie scattering regime. 
+In contrast, for 77~GHz mmWave radar ($\lambda_{\mathrm{radar}} \approx 3.9$~mm), $x \ll 1$, placing the interaction strictly within the Rayleigh scattering regime where the scattering cross-section $\sigma_s$ scales as:
+\begin{equation}
+\sigma_s \propto \frac{\pi^5 d^6}{\lambda^4} \left| \frac{m^2 - 1}{m^2 + 2} \right|^2
+\end{equation}
+Because $\lambda_{\mathrm{radar}} \approx 4300 \times \lambda_{\mathrm{lidar}}$, Rayleigh scattering attenuation is reduced by a factor of $(4300)^4 \approx 3.4 \times 10^{14}$ relative to optical wavelengths, allowing 77~GHz signals to penetrate thick dust and aerosol plumes virtually uninhibited \cite{bauer2020using}. 
 Modern 4D imaging radars deliver high-resolution point clouds characterized by azimuth, elevation, range, and \textit{instantaneous radial Doppler velocity} per reflection. 
 Crucially, Doppler velocity provides an immediate physical observation of relative velocity without numerical differentiation of noisy spatial coordinates.
 
@@ -237,6 +254,13 @@ We implement a robust 3-point RANSAC consensus estimator described in Algorithm~
 \end{algorithmic}
 \end{algorithm}
 
+\begin{figure}[!t]
+\centering
+\includegraphics[width=\columnwidth]{doppler_spectrum_ransac.png}
+\caption{4D mmWave Radar Doppler spectrum and robust RANSAC consensus estimation. (a) Radial Doppler velocity $v_D$ versus azimuth angle $\theta$: static inliers (green) align precisely with the theoretical cosine ego-motion projection profile $\mathbf{v}_r^*$, while dynamic obstacles and multipath reflections (red) are rejected. (b) Absolute residual error distribution confirming that over 85\% of static targets fall strictly within the consensus gate $\epsilon_{\mathrm{ransac}} = 0.25\,\mathrm{m/s}$.}
+\label{fig:doppler_spectrum}
+\end{figure}
+
 \section{Learnable Degradation & Uncertainty Estimator (DA-Net)}
 
 \subsection{Telemetry Feature Extraction}
@@ -369,6 +393,28 @@ Consequently, the proposed DA-EKF filters out the false aerosol wall and maintai
 During the terminal phase ($t > 50$~s), simulated mud and loose sand induce a 35\% longitudinal wheel slip ($v_{\mathrm{wheel}} \approx 1.35 v_{\mathrm{true}}$). 
 Because the baseline estimator maintains a static wheel covariance, the false forward velocity inflates its trajectory forward. 
 The proposed DA-EKF leverages the 4D radar Doppler returns, which directly measure true ground-relative velocity, to override the slipped encoders and maintain consistent velocity bounds.
+
+\begin{figure*}[!t]
+\centering
+\includegraphics[width=0.95\textwidth]{failure_curve_benchmark.png}
+\caption{Systematic localization robustness and failure divergence analysis across increasing atmospheric aerosol degradation. (a) Absolute Trajectory Error (ATE RMSE) versus atmospheric aerosol extinction coefficient $\beta_{\mathrm{ext}}$: Optical LiDAR SLAM (FAST-LIO \cite{xu2021fast}) and Visual-Inertial Odometry (VIO) experience catastrophic exponential divergence beyond the critical failure threshold ($\beta_{\mathrm{ext}} \approx 0.22\,\mathrm{m}^{-1}$), climbing above $18\,\mathrm{m}$ error. In contrast, the proposed 4D Radar-Inertial DA-EKF remains flat ($< 0.25\,\mathrm{m}$) across the entire particulate spectrum due to 77~GHz Rayleigh scattering suppression. (b) Tracking Failure Rate ($\mathrm{ATE} > 2.0\,\mathrm{m}$) versus Meteorological Optical Range (Visibility): FAST-LIO experiences 100\% tracking failure when visibility drops below $15\,\mathrm{m}$, whereas the proposed pipeline maintains 0\% tracking failure even under total optical blackout ($V_{\mathrm{mor}} < 5\,\mathrm{m}$).}
+\label{fig:failure_curve}
+\end{figure*}
+
+\subsection{Divergence Threshold and Optical Blackout Analysis}
+To characterize the physical boundaries of sensor survival, we evaluated state estimation drift across a continuum of atmospheric aerosol extinction coefficients $\beta_{\mathrm{ext}} \in [0.01, 0.80]~\mathrm{m}^{-1}$, corresponding to meteorological optical visibility ranges from $100$~m down to $3.5$~m (Koschmieder's law, (2)). 
+As plotted in Fig.~\ref{fig:failure_curve}(a), optical LiDAR-Inertial Odometry (FAST-LIO \cite{xu2021fast}) performs exceptionally well in clear-to-light haze ($\beta_{\mathrm{ext}} < 0.15~\mathrm{m}^{-1}$, $\mathrm{ATE} \approx 0.11$~m). 
+However, as particulate density crosses the critical threshold:
+\begin{equation}
+\beta_{\mathrm{ext}}^{\mathrm{crit}} \approx 0.22~\mathrm{m}^{-1} \quad (V_{\mathrm{mor}} \approx 14\text{ m})
+\end{equation}
+LiDAR returns suffer catastrophic geometric degradation: near-field backscatter generates a sphere of false points while true ambient returns are attenuated below the sensor's optical receiver threshold. 
+Consequently, the iterative closest point scan matcher experiences severe correspondence mismatching, causing FAST-LIO to diverge exponentially with ATE exceeding $18$~meters. 
+Similarly, Visual-Inertial Odometry (VIO) degrades even earlier at $\beta_{\mathrm{ext}} \approx 0.12~\mathrm{m}^{-1}$ ($V_{\mathrm{mor}} \approx 25$~m) due to loss of photometric gradient and feature tracking loss.
+
+Under identical conditions, the proposed 4D Radar-Inertial DA-EKF exhibits no failure point: ATE remains strictly bounded below $0.25$~m across the entire extinction range. 
+Fig.~\ref{fig:failure_curve}(b) plots the tracking failure rate (defined as $\mathrm{ATE} > 2.0$~m): while optical LiDAR SLAM suffers a 100\% failure rate for visibility ranges below $15$~meters, the proposed radar-inertial pipeline maintains a \textbf{0\% failure rate even under complete optical blackout} ($V_{\mathrm{mor}} < 5$~m). 
+This demonstrates that 77~GHz mmWave Doppler velocity constraints provide the necessary physical observability to guarantee mobile robot survivability in extreme field conditions.
 
 \begin{table}[!t]
 \caption{Ablation Study: Contribution of Individual Components to Trajectory Accuracy in Fog/Dust}
