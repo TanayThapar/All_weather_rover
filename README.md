@@ -7,7 +7,9 @@
 
 An autonomous ROS 2 robot platform and simulation workspace designed for navigation, localization, and control in harsh, degraded environmental conditions—such as dense fog, urban canyons, atmospheric dust, and GPS-denied environments.
 
-🌐 **Live 3D Web Simulator:** [https://simulator-bay-gamma.vercel.app](https://simulator-bay-gamma.vercel.app)
+🌐 **Live 3D Web Simulator:** [https://simulator-bay-gamma.vercel.app](https://simulator-bay-gamma.vercel.app)  
+📄 **Academic Research Blueprint:** [docs/RESEARCH_PAPER_GUIDE.md](docs/RESEARCH_PAPER_GUIDE.md)  
+🏎️ **Personal Data Training Guide:** [docs/PERSONAL_DATA_TRAINING_GUIDE.md](docs/PERSONAL_DATA_TRAINING_GUIDE.md)
 
 ---
 
@@ -61,30 +63,86 @@ The **All Weather Rover** features a modular Xacro component system with Ackerma
 
 ```
 All_weather_rover/
+├── LICENSE                            # Apache 2.0 license file
+├── README.md                          # Project documentation and guide
+├── docs/                              # Research documentation and training guides
+│   ├── RESEARCH_PAPER_GUIDE.md        # Academic manuscript formulation & protocol
+│   └── PERSONAL_DATA_TRAINING_GUIDE.md# Personal data recording, training, and deployment guide
 ├── simulator/                         # Web-based 3D robotics simulator (Three.js + Cannon-es, deployed on Vercel)
 │   ├── index.html                     # Simulation canvas & telemetry HUD
 │   ├── package.json                   # Vite & frontend dependencies
 │   └── src/
 │       ├── main.js                    # 3D physics, SLAM, sensor simulation, and vehicle controller
 │       └── style.css                  # HUD and UI styling
-├── src/
-│   └── rover/
-│       ├── config/
-│       │   └── controllers.yaml       # ros2_control configuration (Ackermann & joint state)
-│       ├── launch/
-│       │   ├── gazebo.launch.py       # Main launch file for Gazebo simulation
-│       │   └── spawn.launch.py        # Robot spawner script
-│       ├── urdf/                      # Modular Xacro robot description files
-│       │   ├── base.xacro             # Main chassis definitions
-│       │   ├── gazebo.xacro           # Gazebo sensor plugins & physics properties
-│       │   ├── materials.xacro        # Color & visual materials
-│       │   ├── ros2_control.xacro     # Hardware interface tags for ros2_control
-│       │   ├── rover.urdf.xacro       # Top-level Xacro entry point
-│       │   ├── sensors.xacro          # Sensor frames (Radar, LiDAR, Thermal, IMU, GPS)
-│       │   └── wheels.xacro           # Wheel geometry & Ackermann steering joints
-│       └── worlds/
-│           └── rover_world.sdf        # Gazebo environment (obstacles, lighting & fog)
-└── package.xml                        # ROS 2 package manifest
+└── src/
+    └── rover/                         # ROS 2 rover package
+        ├── config/
+        │   ├── controllers.yaml       # ros2_control configuration (Ackermann & joint state)
+        │   └── fusion_params.yaml     # Parameters for DA-EKF and DA-Net fusion node
+        ├── launch/
+        │   ├── gazebo.launch.py       # Main launch file for Gazebo simulation
+        │   ├── spawn.launch.py        # Robot spawner script
+        │   └── fusion.launch.py       # Launch file for state estimation fusion node
+        ├── rover/                     # Core Python modules
+        │   ├── core/                  # ES-EKF, 4D Doppler kinematics, state kinematics
+        │   ├── learning/              # DA-Net PyTorch model, dataset loader, multi-task loss
+        │   ├── nodes/                 # ROS 2 fusion node & synchronous data recorder
+        │   └── scripts/               # Training (train.py), benchmark (evaluate.py), data prep
+        ├── urdf/                      # Modular Xacro robot description files
+        │   ├── base.xacro             # Main chassis definitions
+        │   ├── gazebo.xacro           # Gazebo sensor plugins & physics properties
+        │   ├── materials.xacro        # Color & visual materials
+        │   ├── ros2_control.xacro     # Hardware interface tags for ros2_control
+        │   ├── rover.urdf.xacro       # Top-level Xacro entry point
+        │   ├── sensors.xacro          # Sensor frames (Radar, LiDAR, Thermal, IMU, GPS)
+        │   └── wheels.xacro           # Wheel geometry & Ackermann steering joints
+        ├── worlds/
+        │   └── rover_world.sdf        # Gazebo environment (obstacles, lighting & fog)
+        ├── package.xml                # ROS 2 package manifest
+        ├── setup.py                   # Python package setup configuration
+        └── setup.cfg                  # Python packaging configuration
+```
+
+---
+
+## 🔬 Research Core: Degradation-Aware 4D Radar-Inertial Fusion (DA-EKF)
+
+The algorithmic novelty implemented in `src/rover/rover/` combines analytical radar kinematics with learned uncertainty estimation:
+
+```
+┌─────────────────┐       ┌────────────────────────┐
+│ Multi-Modal     │──────>│  DA-Net Neural Model   │
+│ Telemetry Feed  │       │ (Trained on User Data) │
+└─────────────────┘       └───────────┬────────────┘
+                                      │ Dynamic Covariance Scales α(t)
+┌─────────────────┐                   │ Body Velocity Priors v_pred
+│ 4D mmWave Radar │──┐                ▼
+│ Doppler Point-  │  │    ┌────────────────────────┐       ┌──────────────────────┐
+│ Cloud Stream    │  ├───>│ Degradation-Aware EKF  │──────>│ Continuous Filtered  │
+└─────────────────┘  │    │  (Analytical Doppler   │       │ Odometry & TF        │
+┌─────────────────┐  │    │   Jacobians + Gating)  │       │ (/rover/filtered_odom│
+│ IMU / Odom/LiDAR│──┘    └────────────────────────┘       └──────────────────────┘
+└─────────────────┘
+```
+
+### 1. Training on Personal Live Recordings
+You can train the model on your personal rover data (NPZ archives, CSV logs, or rosbags):
+```bash
+python3 -m rover.scripts.train --data_dir data/my_recordings --epochs 40
+```
+*Supports Apple Silicon Metal GPU acceleration (`device='mps'`), NVIDIA CUDA, and CPU.*
+
+### 2. Evaluating Benchmarks & Baseline Comparisons
+Generate publication-quality metrics (ATE, RPE drift) comparing against fixed-covariance baselines:
+```bash
+python3 -m rover.scripts.evaluate --data data/test_session.npz --checkpoint checkpoints/best_model.pt --save_plot docs/trajectory_benchmark.png
+```
+
+### 3. Real-Time ROS 2 Live Deployment
+```bash
+ros2 launch rover fusion.launch.py \
+    checkpoint_path:=$(pwd)/checkpoints/best_model.pt \
+    norm_params_path:=$(pwd)/checkpoints/norm_params.json
 ```
 
 ---
@@ -142,4 +200,4 @@ ros2 launch rover gazebo.launch.py
 
 ## 📜 License
 
-This project is licensed under the [Apache-2.0 License](package.xml).
+This project is licensed under the [Apache-2.0 License](LICENSE).

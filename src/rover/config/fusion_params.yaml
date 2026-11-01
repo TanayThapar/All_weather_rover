@@ -1,0 +1,17 @@
+rover_fusion_node:
+  ros__parameters:
+    use_sim_time: true
+    publish_rate_hz: 50.0
+
+    # Sensor Extrinsics (relative to base_link)
+    radar_x_offset: 0.40
+    radar_y_offset: 0.00
+    radar_z_offset: 0.15
+
+    # Checkpoint and Normalization paths
+    checkpoint_path: "checkpoints/best_model.pt"
+    norm_params_path: "checkpoints/norm_params.json"
+
+    # Outlier Rejection Thresholds
+    doppler_inlier_threshold_mps: 0.25
+    min_inlier_ratio: 0.40

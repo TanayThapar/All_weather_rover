@@ -4,6 +4,20 @@ __pycache__/
 *.pyo
 *.egg-info/
 
+# ROS 2 colcon build artifacts
+build/
+install/
+log/
+
+# Node.js & Web Simulator
+node_modules/
+dist/
+.vercel
+
+# Trained weights & recorded datasets
+checkpoints/*.pt
+data/*.npz
+
 # Editor files
 .vscode/
 .idea/

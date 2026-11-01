@@ -13,7 +13,7 @@
     Gazebo and ros2_control.
   </description>
 
-  <maintainer email="cv-02@todo.todo">cv-02</maintainer>
+  <maintainer email="tanay.ggmu@gmail.com">Tanay Thapar</maintainer>
 
   <license>Apache-2.0</license>
 
@@ -55,6 +55,16 @@
 
   <depend>ros2_controllers</depend>
 
+
+  <!-- ============================== -->
+  <!-- Sensor & Navigation Messages -->
+  <!-- ============================== -->
+
+  <depend>sensor_msgs</depend>
+  <depend>sensor_msgs_py</depend>
+  <depend>nav_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>tf2_ros</depend>
 
   <!-- ============================== -->
   <!-- Ackermann Steering -->
